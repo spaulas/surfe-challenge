@@ -19,8 +19,8 @@ export function* fetchNotesAsync({ payload }: any): any {
 
 export function* fetchNotesByIdAsync({ payload }: any): any {
   try {
-    yield call(fetchNoteByIdAPIRequest, payload);
-    yield put(actions.fetchNoteByIdSucceeded(payload));
+    const note = yield call(fetchNoteByIdAPIRequest, payload);
+    yield put(actions.fetchNoteByIdSucceeded(note.body));
   } catch (error) {
     yield put(actions.fetchNoteByIdFailed(error));
   }

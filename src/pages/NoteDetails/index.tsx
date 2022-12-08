@@ -5,7 +5,7 @@ import Details from "../../components/Notes/Details/index";
 import useGetNoteDetails from "../../hooks/notes/useGetNoteDetails";
 
 const NoteDetails = (): React.ReactElement => {
-  const { getNoteById, body, isLoading, hasError } = useGetNoteDetails();
+  const { getNoteById, body, id, isLoading, hasError } = useGetNoteDetails();
 
   useEffect(() => {
     getNoteById();
@@ -18,7 +18,7 @@ const NoteDetails = (): React.ReactElement => {
     case hasError:
       return <ErrorState />;
     default:
-      return <Details body={body} />;
+      return <Details body={body} id={id} />;
   }
 };
 

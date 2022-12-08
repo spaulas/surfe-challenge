@@ -1,7 +1,15 @@
+import NoteCard from "./NoteCard";
 import { Props } from "./types";
+import "./styles.scss";
 
 const NotesList = ({ notes }: Props) => {
-  return <div>Main Notes</div>;
+  return (
+    <section className="notes-list">
+      {notes.map((note) => (
+        <NoteCard {...note} key={note.id} />
+      ))}
+    </section>
+  );
 };
 
 export default NotesList;

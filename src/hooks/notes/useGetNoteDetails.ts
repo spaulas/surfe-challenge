@@ -22,6 +22,7 @@ const useGetNoteDetails = () => {
   return {
     getNoteById,
     session,
+    id,
     ...notesState,
   };
 };

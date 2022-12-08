@@ -1,7 +1,6 @@
 import { ValueOf } from "../../../type/global.d";
 import NotesActionsTypes from "./notesActions.types.d";
 import {
-  CreateNotePayload,
   Note,
   NoteByIdPayload,
   NotesPayload,
@@ -59,10 +58,10 @@ const updateNoteFailed = (error: any) => ({
   payload: { error },
 });
 
-const createNoteRequest = ({ session, body }: CreateNotePayload) => {
+const createNoteRequest = ({ session }: NotesPayload) => {
   return {
     type: NotesActionsTypes.CREATE_NOTE_REQUEST,
-    payload: { session, body },
+    payload: { session },
   };
 };
 

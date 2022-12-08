@@ -1,5 +1,6 @@
-import { Note } from "../../../api/notes/notes.types"
+import { Note } from "../../../api/notes/notes.types";
 
 export type Props = {
-    body: Note.body
-}
+  body: Note["body"];
+  id?: Note["id"];
+};

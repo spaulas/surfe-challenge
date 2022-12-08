@@ -13,9 +13,5 @@ export type UpdateNotePayload = {
   body: string;
 };
 
-export type CreateNotePayload = {
-  session: string;
-  body: string;
-};
 
 export type Note = { id: string; body: string };

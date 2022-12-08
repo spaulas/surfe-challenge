@@ -1,0 +1,12 @@
+.note-card {
+  box-sizing: border-box;
+  height: 360px;
+  width: 320px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  -webkit-box-shadow: 4px 4px 25px 0px rgba(0, 0, 0, 0.27);
+  -moz-box-shadow: 4px 4px 25px 0px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 4px 25px 0px rgba(0, 0, 0, 0.27);
+}
