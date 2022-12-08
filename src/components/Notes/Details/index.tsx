@@ -12,6 +12,7 @@ const NoteDetails = ({ body, id }: Props) => {
   const [currentValue, setCurrentValue] = useState<string>(body);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const lastValue = useRef("");
+  const index = useRef(0);
 
   const { updateNote, createNote } = useSendNote();
   const { filterUsers, users, hasError } = useGetUsers();
@@ -60,10 +61,20 @@ const NoteDetails = ({ body, id }: Props) => {
   const findDiff = (str1: string, str2: string) => {
     let diff = "";
 
-    str2.split("").forEach((val, i) => {
+    str2.split("").every((val, i) => {
       if (val !== str1.charAt(i)) {
+        if (diff === "") {
+          index.current = i;
+        }
+
+        if (val === " ") {
+          return false;
+        }
+
         diff += val;
       }
+
+      return true;
     });
 
     return diff;
@@ -77,6 +88,16 @@ const NoteDetails = ({ body, id }: Props) => {
     []
   );
 
+  const handleOptionClick = (option: any) => {
+    const firstPart = lastValue.current.slice(0, index.current - 1);
+    const lastPart = lastValue.current.slice(
+      index.current,
+      lastValue.current.length
+    );
+
+    setCurrentValue(`${firstPart}@${option}${lastPart}`);
+  };
+
   return (
     <section className="note-details">
       <div className="note-details__header">
@@ -89,6 +110,7 @@ const NoteDetails = ({ body, id }: Props) => {
             setShowDropdown(false);
           }}
           users={users}
+          handleOptionClick={handleOptionClick}
         />
       ) : null}
     </section>

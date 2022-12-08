@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useGetUsers from "../../../hooks/users/useGetUsers";
 
-const UserDropdown = ({ hide, users }: any) => {
-  const { getUsers, filterUsers, hasError, isLoading } = useGetUsers();
+const UserDropdown = ({ hide, users, handleOptionClick }: any) => {
+  const { getUsers, filterUsers, hasError } = useGetUsers();
   const handleClickOutside = (e: any) => {
     hide(false);
   };
@@ -32,11 +32,13 @@ const UserDropdown = ({ hide, users }: any) => {
       <ul
         className="py-1 text-xs text-gray-700 dark:text-gray-200"
         aria-labelledby="dropdownLeftStartButton"
-        onClick={() => console.log("clicked on ele et")}
       >
         {users.map((user: any) => (
-          <li className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-            {user.fullName}
+          <li
+            className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+            onClick={() => handleOptionClick(user.username)}
+          >
+            {user.fullName} | @{user.username}
           </li>
         ))}
       </ul>
