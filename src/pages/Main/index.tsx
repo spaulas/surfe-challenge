@@ -17,7 +17,6 @@ const Main = (): React.ReactElement => {
   }, []);
 
   const redirectToNote = () => {
-    console.log("session = ", session);
     history.push(`${session}/notes`);
   };
 

@@ -5,7 +5,7 @@ import InitialUsers from "./usersReducer.types";
 const INITIAL_USERS: InitialUsers = {
   users: [],
   isLoading: false,
-  hasError: false,
+  hasError: undefined,
 };
 
 const usersReducer = (state = INITIAL_USERS, action: ActionsCreators) => {
@@ -16,7 +16,7 @@ const usersReducer = (state = INITIAL_USERS, action: ActionsCreators) => {
         ...state,
         users: [],
         isLoading: true,
-        hasError: false,
+        hasError: undefined,
       };
 
     case UsersActionsTypes.FETCH_USERS_SUCCESS:

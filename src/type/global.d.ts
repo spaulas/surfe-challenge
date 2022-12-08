@@ -12,6 +12,7 @@ export type InputElement = {
   target: {
     value: string;
   };
+  nativeEvent: InputElement
 };
 
 export type Error = {

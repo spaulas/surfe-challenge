@@ -1,7 +1,9 @@
+import { User } from "../../../api/users/types";
+
 type InitialUsers = {
-  users: any; // TODO create
+  users: User[];
   isLoading: boolean;
-  hasError: boolean;
+  hasError?: boolean;
 };
 
 export default InitialUsers;

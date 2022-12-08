@@ -9,13 +9,17 @@ import {
 export function* fetchUsersAsync(): any {
   try {
     const response = yield call(fetchUsersAPIRequest);
-    yield put(actions.fetchUsersSucceeded(response));
+    const cleanUsers = response.data.map((user: any) => ({
+      username: user.username,
+      fullName: `${user.first_name} ${user.last_name}`,
+    }));
+    yield put(actions.fetchUsersSucceeded(cleanUsers));
   } catch (error) {
     yield put(actions.fetchUsersFailed(error));
   }
 }
 
-export function* fetchNotesByIdAsync(): any {
+export function* fetchMostMentionedUsersAsync(): any {
   try {
     const response = yield call(fetchMostMentionedUsersAPIRequest);
     yield put(actions.fetchMostMentionedUsersSucceeded(response));
@@ -29,7 +33,7 @@ export default function* sagaCollections() {
     takeLatest(UsersActionTypes.FETCH_USERS_REQUEST, fetchUsersAsync),
     takeLatest(
       UsersActionTypes.FETCH_MOST_MENTIONED_REQUEST,
-      fetchNotesByIdAsync
+      fetchMostMentionedUsersAsync
     ),
   ]);
 }
