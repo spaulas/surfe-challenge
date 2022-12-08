@@ -9,7 +9,7 @@ import {
 export function* fetchUsersAsync(): any {
   try {
     const response = yield call(fetchUsersAPIRequest);
-    const cleanUsers = response.data.map((user: any) => ({
+    const cleanUsers = response.map((user: any) => ({
       username: user.username,
       fullName: `${user.first_name} ${user.last_name}`,
     }));
@@ -22,6 +22,7 @@ export function* fetchUsersAsync(): any {
 export function* fetchMostMentionedUsersAsync(): any {
   try {
     const response = yield call(fetchMostMentionedUsersAPIRequest);
+    console.log('response = ', response)
     yield put(actions.fetchMostMentionedUsersSucceeded(response));
   } catch (error) {
     yield put(actions.fetchMostMentionedUsersFailed(error));

@@ -7,20 +7,43 @@ import { useEffect, useRef } from "react";
 import { Props } from "./types";
 import UserDropdown from "../../Users/UserDropdown";
 import useGetUsers from "../../../hooks/users/useGetUsers";
+import DetailsHeader from "./Header";
+import { User } from "../../../api/users/types";
 
 const NoteDetails = ({ body, id }: Props) => {
   const [currentValue, setCurrentValue] = useState<string>(body);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const draggingUser = useRef("");
   const lastValue = useRef("");
   const index = useRef(0);
 
   const { updateNote, createNote } = useSendNote();
   const { filterUsers, users, hasError } = useGetUsers();
 
+  const test = () => {
+    console.log("currentValue = ", currentValue);
+    const finalValue = `${currentValue} @${draggingUser.current}`;
+    updateNote(finalValue);
+    setCurrentValue(finalValue);
+  };
+
+  const handleDroppedUser = () => {
+    console.log("DRAGGING USER = ", draggingUser);
+    test();
+  };
+
   useEffect(() => {
+    const textArea = document.getElementById("textArea");
     if (typeof id === "undefined") {
       createNote();
     }
+
+    textArea?.addEventListener("drop", handleDroppedUser);
+
+    return () => {
+      textArea?.removeEventListener("click", handleDroppedUser);
+    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -100,10 +123,19 @@ const NoteDetails = ({ body, id }: Props) => {
 
   return (
     <section className="note-details">
-      <div className="note-details__header">
-        <button>Back</button>
-      </div>
-      <textarea value={currentValue} onChange={handleNoteOnChange} />
+      <DetailsHeader
+        setDraggingUser={(username: string) => {
+          draggingUser.current = username;
+        }}
+      />
+      <textarea
+        onDragOver={(e) => {
+          e.preventDefault();
+        }}
+        id="textArea"
+        value={currentValue}
+        onChange={handleNoteOnChange}
+      />
       {showDropdown ? (
         <UserDropdown
           hide={() => {

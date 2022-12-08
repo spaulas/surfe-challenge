@@ -11,7 +11,7 @@ export const handleAPIError = (error: Error) => {
 export const fetchUsersAPIRequest = async () => {
   try {
     const response = await axiosInstance.get(USERS_ENDPOINT);
-    return response;
+    return response.data;
   } catch (error) {
     throw handleAPIError(error as Error);
   }
@@ -20,7 +20,8 @@ export const fetchUsersAPIRequest = async () => {
 export const fetchMostMentionedUsersAPIRequest = async () => {
   try {
     const response = await axiosInstance.get(MOST_MENTIONED_USERS_ENDPOINT);
-    return response;
+    console.log('response = ', response)
+    return response.data;
   } catch (error) {
     throw handleAPIError(error as Error);
   }
