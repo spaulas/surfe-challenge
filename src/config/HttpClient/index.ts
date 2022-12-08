@@ -1,4 +1,5 @@
-const axios = require("axios");
+const axios = require('axios').default;
+
 
 const axiosInstance = axios.create({
   timeout: 500,

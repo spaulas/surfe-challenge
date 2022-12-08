@@ -1,10 +1,12 @@
+import { Note } from "../../../api/notes/notes.types";
+
 type InitialNotes = {
-  message: string | null;
+  body: string | null;
   isLoading: boolean;
   isUpdating: boolean;
   isCreating: boolean;
   hasError: boolean;
-  notes: any; // TODO create
+  notes: Note[];
 };
 
 export default InitialNotes;

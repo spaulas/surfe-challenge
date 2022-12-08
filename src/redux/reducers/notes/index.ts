@@ -1,14 +1,14 @@
-import { ActionsCreators } from "@actions/notes";
-import NotesActionsTypes from "@actions/notes/notesActions.types";
+import { ActionsCreators } from "../../actions/notes";
+import NotesActionsTypes from "../../actions/notes/notesActions.types.d";
 import InitialNotes from "./notesReducer.types";
 
 const INITIAL_NOTES: InitialNotes = {
-  message: null,
+  body: null,
+  notes: [],
   isLoading: false,
   isUpdating: false,
   isCreating: false,
   hasError: false,
-  notes: [],
 };
 
 const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
@@ -38,7 +38,7 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
     case NotesActionsTypes.FETCH_NOTE_BY_ID_REQUEST:
       return {
         ...state,
-        message: null,
+        body: null,
         isLoading: true,
         hasError: false,
       };
@@ -46,7 +46,7 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
     case NotesActionsTypes.FETCH_NOTE_BY_ID_SUCCESS:
       return {
         ...state,
-        message: action.payload.message,
+        body: action.payload.body,
         isLoading: false,
         hasError: false,
       };
@@ -68,7 +68,7 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
     case NotesActionsTypes.UPDATE_NOTE_SUCCESS:
       return {
         ...state,
-        message: action.payload.message,
+        body: action.payload.body,
         isUpdating: false,
         hasError: false,
       };

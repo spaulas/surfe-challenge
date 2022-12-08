@@ -1,5 +1,5 @@
 import { USERS_ENDPOINT, MOST_MENTIONED_USERS_ENDPOINT } from "./endpoints";
-import httpClient from "@config/HttpClient";
+import httpClient from "../../config/HttpClient";
 
 const axiosInstance = httpClient();
 

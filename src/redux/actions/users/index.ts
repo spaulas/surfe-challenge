@@ -1,5 +1,5 @@
-import { ValueOf } from "@type/global.d";
-import UsersActionsTypes from "./usersActions.types";
+import { ValueOf } from "../../../type/global.d";
+import UsersActionsTypes from "./usersActions.types.d";
 
 const fetchUsersRequest = () => {
   return {

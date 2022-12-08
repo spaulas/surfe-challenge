@@ -1,11 +1,12 @@
-import { ValueOf } from "@type/global.d";
-import NotesActionsTypes from "./notesActions.types";
+import { ValueOf } from "../../../type/global.d";
+import NotesActionsTypes from "./notesActions.types.d";
 import {
   CreateNotePayload,
+  Note,
   NoteByIdPayload,
   NotesPayload,
   UpdateNotePayload,
-} from "@api/notes/notes.types";
+} from "../../../api/notes/notes.types";
 
 const fetchNotesRequest = ({ session }: NotesPayload) => {
   return {
@@ -14,7 +15,7 @@ const fetchNotesRequest = ({ session }: NotesPayload) => {
   };
 };
 
-const fetchNotesSucceeded = (notes: any) => ({
+const fetchNotesSucceeded = (notes: Note[]) => ({
   type: NotesActionsTypes.FETCH_NOTES_SUCCESS,
   payload: { notes },
 });
@@ -31,9 +32,9 @@ const fetchNoteByIdRequest = ({ session, id }: NoteByIdPayload) => {
   };
 };
 
-const fetchNoteByIdSucceeded = (message: string) => ({
+const fetchNoteByIdSucceeded = (body: string) => ({
   type: NotesActionsTypes.FETCH_NOTE_BY_ID_SUCCESS,
-  payload: { message },
+  payload: { body },
 });
 
 const fetchNoteByIdFailed = (error: any) => ({
@@ -41,16 +42,16 @@ const fetchNoteByIdFailed = (error: any) => ({
   payload: { error },
 });
 
-const updateNoteRequest = ({ session, id, message }: UpdateNotePayload) => {
+const updateNoteRequest = ({ session, id, body }: UpdateNotePayload) => {
   return {
     type: NotesActionsTypes.UPDATE_NOTE_REQUEST,
-    payload: { session, id, message },
+    payload: { session, id, body },
   };
 };
 
-const updateNoteSucceeded = (message: string) => ({
+const updateNoteSucceeded = (body: string) => ({
   type: NotesActionsTypes.UPDATE_NOTE_SUCCESS,
-  payload: { message },
+  payload: { body },
 });
 
 const updateNoteFailed = (error: any) => ({
@@ -58,16 +59,16 @@ const updateNoteFailed = (error: any) => ({
   payload: { error },
 });
 
-const createNoteRequest = ({ session, message }: CreateNotePayload) => {
+const createNoteRequest = ({ session, body }: CreateNotePayload) => {
   return {
     type: NotesActionsTypes.CREATE_NOTE_REQUEST,
-    payload: { session, message },
+    payload: { session, body },
   };
 };
 
-const createNoteSucceeded = (message: string) => ({
+const createNoteSucceeded = (body: string) => ({
   type: NotesActionsTypes.CREATE_NOTE_SUCCESS,
-  payload: { message },
+  payload: { body },
 });
 
 const createNoteFailed = (error: any) => ({

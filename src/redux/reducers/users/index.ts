@@ -1,5 +1,5 @@
-import { ActionsCreators } from "@actions/notes";
-import UsersActionsTypes from "@actions/users/usersActions.types";
+import { ActionsCreators } from "../../actions/notes";
+import UsersActionsTypes from "../../actions/users/usersActions.types.d";
 import InitialUsers from "./usersReducer.types";
 
 const INITIAL_USERS: InitialUsers = {

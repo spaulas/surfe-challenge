@@ -2,14 +2,20 @@ export type NotesPayload = {
   session: string;
 };
 
-export type NoteByIdPayload = NotesPayload & {
+export type NoteByIdPayload = {
+  session: string;
   id: string;
 };
 
-export type UpdateNotePayload = NoteByIdPayload & {
-  message: string;
+export type UpdateNotePayload = {
+  session: string;
+  id: string;
+  body: string;
 };
 
-export type CreateNotePayload = NotesPayload & {
-  message: string;
+export type CreateNotePayload = {
+  session: string;
+  body: string;
 };
+
+export type Note = { id: string; body: string };

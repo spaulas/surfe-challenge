@@ -1,17 +1,17 @@
 import { all, put, takeLatest, call } from "redux-saga/effects";
-import NotesActionTypes from "@actions/notes/notesActions.types";
-import actions from "@actions/notes";
+import NotesActionTypes from "../../actions/notes/notesActions.types.d";
+import actions from "../../actions/notes";
 import {
   fetchNotesAPIRequest,
   fetchNoteByIdAPIRequest,
   updateNoteAPIRequest,
   createNoteAPIRequest,
-} from "@api/notes";
+} from "../../../api/notes";
 
 export function* fetchNotesAsync({ payload }: any): any {
   try {
-    yield call(fetchNotesAPIRequest, payload);
-    yield put(actions.fetchNotesSucceeded(payload));
+    const notes = yield call(fetchNotesAPIRequest, payload);
+    yield put(actions.fetchNotesSucceeded(notes));
   } catch (error) {
     yield put(actions.fetchNotesFailed(error));
   }
