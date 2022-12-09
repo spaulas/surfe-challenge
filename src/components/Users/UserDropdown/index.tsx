@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import useGetUsers from "../../../hooks/users/useGetUsers";
+import { User } from "../../../api/users/types";
 import { Props } from "./types";
 
 const UserDropdown = ({
@@ -36,7 +37,7 @@ const UserDropdown = ({
         className="py-1 text-xs text-gray-700 dark:text-gray-200"
         aria-labelledby="dropdownLeftStartButton"
       >
-        {users.map((user: any) => (
+        {users.map((user: User) => (
           <li
             className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
             onClick={() => handleOptionClick(user.username)}

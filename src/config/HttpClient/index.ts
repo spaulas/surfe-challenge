@@ -1,3 +1,5 @@
+import { ExplicitAny } from "../../type/global";
+
 const axios = require('axios').default;
 
 
@@ -8,7 +10,7 @@ const axiosInstance = axios.create({
 const baseURL = "https://challenge.surfe.com";
 
 const httpClient = () => {
-  axiosInstance.interceptors.request.use((config: any) => ({
+  axiosInstance.interceptors.request.use((config: ExplicitAny) => ({
     ...config,
     baseURL,
   }));

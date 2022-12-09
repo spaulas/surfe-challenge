@@ -7,10 +7,11 @@ const useGetNoteDetails = () => {
   const { session, id } = useParams<{ session: string; id: string }>();
   const dispatch = useDispatch();
 
-  const notesState = useSelector(({ Notes }: RootReducerState) => ({
+  const notesState = useSelector(({ Notes, Users }: RootReducerState) => ({
     body: Notes.body,
     isLoading: Notes.isLoading.fetchDetails,
     hasError: Notes.hasError.fetchDetails,
+    hasFetchMentionedUsersError: Users.hasError.fetchMostMentioned,
   }));
 
   const getNoteById = () => {

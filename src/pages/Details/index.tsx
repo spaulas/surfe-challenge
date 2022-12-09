@@ -5,7 +5,13 @@ import NoteDetails from "../../components/Notes/Details/index";
 import useGetNoteDetails from "../../hooks/notes/useGetNoteDetails";
 
 const Details = (): React.ReactElement => {
-  const { getNoteById, body, isLoading, hasError } = useGetNoteDetails();
+  const {
+    getNoteById,
+    body,
+    isLoading,
+    hasError,
+    hasFetchMentionedUsersError,
+  } = useGetNoteDetails();
 
   useEffect(() => {
     getNoteById();
@@ -18,7 +24,12 @@ const Details = (): React.ReactElement => {
     case hasError:
       return <ErrorState />;
     default:
-      return <NoteDetails body={body} />;
+      return (
+        <NoteDetails
+          body={body}
+          hasFetchMentionedUsersError={hasFetchMentionedUsersError}
+        />
+      );
   }
 };
 

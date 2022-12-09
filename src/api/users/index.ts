@@ -8,7 +8,7 @@ export const fetchUsersAPIRequest = async () => {
     const response = await axiosInstance.get(USERS_ENDPOINT);
     return response.data;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -17,6 +17,6 @@ export const fetchMostMentionedUsersAPIRequest = async () => {
     const response = await axiosInstance.get(MOST_MENTIONED_USERS_ENDPOINT);
     return response.data;
   } catch (error) {
-    return error;
+    throw error;
   }
 };

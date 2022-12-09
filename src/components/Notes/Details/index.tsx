@@ -5,10 +5,14 @@ import DetailsHeader from "./Header";
 import useSendNote from "../../../hooks/notes/useSendNote";
 import useGetUsers from "../../../hooks/users/useGetUsers";
 import { Props } from "./types";
+import { User } from "../../../api/users/types";
 import { ExplicitAny } from "../../../type/global";
 import "./styles.scss";
 
-const NoteDetails = ({ body }: Props): React.ReactElement => {
+const NoteDetails = ({
+  body,
+  hasFetchMentionedUsersError,
+}: Props): React.ReactElement => {
   const [currentValue, setCurrentValue] = useState<string>(body);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const draggingUser = useRef<string>("");
@@ -31,8 +35,7 @@ const NoteDetails = ({ body }: Props): React.ReactElement => {
     setCurrentValue(finalValue);
   };
 
-  const handleOptionClick = (option: any) => {
-    console.log();
+  const handleOptionClick = (option: User["username"]) => {
     const firstPart = currentValue.slice(0, indexStart.current - 1);
     const lastPart = currentValue.slice(indexEnd.current, currentValue.length);
 
@@ -97,6 +100,7 @@ const NoteDetails = ({ body }: Props): React.ReactElement => {
         setDraggingUser={(username: string) => {
           draggingUser.current = username;
         }}
+        hasFetchMentionedUsersError={hasFetchMentionedUsersError}
       />
       <textarea
         onDragOver={(e) => {

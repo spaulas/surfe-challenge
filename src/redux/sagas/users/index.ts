@@ -1,30 +1,32 @@
 import { all, put, takeLatest, call } from "redux-saga/effects";
-import UsersActionTypes from "../../actions/users/usersActions.types.d";
 import actions from "../../actions/users";
 import {
   fetchUsersAPIRequest,
   fetchMostMentionedUsersAPIRequest,
 } from "../../../api/users";
+import UsersActionTypes from "../../actions/users/usersActions.types.d";
+import { SagaIterator } from "@redux-saga/types";
+import { UserFromRequest } from "../../../api/users/types";
 
-export function* fetchUsersAsync(): any {
+export function* fetchUsersAsync(): SagaIterator<void> {
   try {
     const response = yield call(fetchUsersAPIRequest);
-    const cleanUsers = response.map((user: any) => ({
+    const cleanUsers = response.map((user: UserFromRequest) => ({
       username: user.username,
       fullName: `${user.first_name} ${user.last_name}`,
     }));
     yield put(actions.fetchUsersSucceeded(cleanUsers));
   } catch (error) {
-    yield put(actions.fetchUsersFailed(error));
+    yield put(actions.fetchUsersFailed());
   }
 }
 
-export function* fetchMostMentionedUsersAsync(): any {
+export function* fetchMostMentionedUsersAsync(): SagaIterator<void> {
   try {
     const users = yield call(fetchMostMentionedUsersAPIRequest);
     yield put(actions.fetchMostMentionedUsersSucceeded(users));
   } catch (error) {
-    yield put(actions.fetchMostMentionedUsersFailed(error));
+    yield put(actions.fetchMostMentionedUsersFailed());
   }
 }
 

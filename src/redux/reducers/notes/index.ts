@@ -30,7 +30,7 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
         },
         hasError: {
           ...state.hasError,
-          fetch: undefined,
+          fetch: undefined
         },
       };
 

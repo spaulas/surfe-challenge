@@ -1,3 +1,4 @@
+import { User, UserFromRequest } from "../../../api/users/types";
 import { ValueOf } from "../../../type/global.d";
 import UsersActionsTypes from "./usersActions.types.d";
 
@@ -7,15 +8,13 @@ const fetchUsersRequest = () => {
   };
 };
 
-// TODO create typed for users
-const fetchUsersSucceeded = (users: any) => ({
+const fetchUsersSucceeded = (users: User[]) => ({
   type: UsersActionsTypes.FETCH_USERS_SUCCESS,
   payload: { users },
 });
 
-const fetchUsersFailed = (error: any) => ({
+const fetchUsersFailed = () => ({
   type: UsersActionsTypes.FETCH_USERS_ERROR,
-  payload: { error },
 });
 
 const fetchMostMentionedUsersRequest = () => {
@@ -24,14 +23,13 @@ const fetchMostMentionedUsersRequest = () => {
   };
 };
 
-const fetchMostMentionedUsersSucceeded = (users: any) => ({
+const fetchMostMentionedUsersSucceeded = (users: UserFromRequest[]) => ({
   type: UsersActionsTypes.FETCH_MOST_MENTIONED_SUCCESS,
   payload: { users },
 });
 
-const fetchMostMentionedUsersFailed = (error: any) => ({
+const fetchMostMentionedUsersFailed = () => ({
   type: UsersActionsTypes.FETCH_MOST_MENTIONED_ERROR,
-  payload: { error },
 });
 
 const actionsCreators = Object.freeze({

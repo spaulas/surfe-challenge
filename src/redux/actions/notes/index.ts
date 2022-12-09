@@ -19,9 +19,8 @@ const fetchNotesSucceeded = (notes: Note[]) => ({
   payload: { notes },
 });
 
-const fetchNotesFailed = (error: any) => ({
+const fetchNotesFailed = () => ({
   type: NotesActionsTypes.FETCH_NOTES_ERROR,
-  payload: { error },
 });
 
 const fetchNoteByIdRequest = ({ session, id }: NoteByIdPayload) => {
@@ -36,9 +35,8 @@ const fetchNoteByIdSucceeded = (body: string) => ({
   payload: { body },
 });
 
-const fetchNoteByIdFailed = (error: any) => ({
+const fetchNoteByIdFailed = () => ({
   type: NotesActionsTypes.FETCH_NOTE_BY_ID_ERROR,
-  payload: { error },
 });
 
 const updateNoteRequest = ({ session, id, body }: UpdateNotePayload) => {
@@ -53,9 +51,8 @@ const updateNoteSucceeded = (body: string) => ({
   payload: { body },
 });
 
-const updateNoteFailed = (error: any) => ({
+const updateNoteFailed = () => ({
   type: NotesActionsTypes.UPDATE_NOTE_ERROR,
-  payload: { error },
 });
 
 const createNoteRequest = ({ session }: NotesPayload) => {
@@ -70,9 +67,8 @@ const createNoteSucceeded = (notes: Note[]) => ({
   payload: { notes },
 });
 
-const createNoteFailed = (error: any) => ({
+const createNoteFailed = () => ({
   type: NotesActionsTypes.CREATE_NOTE_ERROR,
-  payload: { error },
 });
 
 const actionsCreators = Object.freeze({
