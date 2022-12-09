@@ -8,41 +8,21 @@ import { Props } from "./types";
 import UserDropdown from "../../Users/UserDropdown";
 import useGetUsers from "../../../hooks/users/useGetUsers";
 import DetailsHeader from "./Header";
-import { User } from "../../../api/users/types";
 
 const NoteDetails = ({ body, id }: Props) => {
   const [currentValue, setCurrentValue] = useState<string>(body);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
-  const draggingUser = useRef("");
-  const lastValue = useRef("");
-  const index = useRef(0);
+  const draggingUser = useRef<string>("");
+  const lastValue = useRef<string>("");
+  const index = useRef<number>(0);
 
   const { updateNote, createNote } = useSendNote();
   const { filterUsers, users, hasError } = useGetUsers();
 
-  const test = () => {
-    console.log("currentValue = ", currentValue);
-    const finalValue = `${currentValue} @${draggingUser.current}`;
-    updateNote(finalValue);
-    setCurrentValue(finalValue);
-  };
-
-  const handleDroppedUser = () => {
-    console.log("DRAGGING USER = ", draggingUser);
-    test();
-  };
-
   useEffect(() => {
-    const textArea = document.getElementById("textArea");
     if (typeof id === "undefined") {
       createNote();
     }
-
-    textArea?.addEventListener("drop", handleDroppedUser);
-
-    return () => {
-      textArea?.removeEventListener("click", handleDroppedUser);
-    };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -53,6 +33,12 @@ const NoteDetails = ({ body, id }: Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasError]);
+
+  const handleDroppedUser = () => {
+    const finalValue = `${currentValue} @${draggingUser.current}`;
+    updateNote(finalValue);
+    setCurrentValue(finalValue);
+  };
 
   const handleNoteOnChange = (e: ExplicitAny) => {
     const {
@@ -118,7 +104,10 @@ const NoteDetails = ({ body, id }: Props) => {
       lastValue.current.length
     );
 
-    setCurrentValue(`${firstPart}@${option}${lastPart}`);
+    const finalValue = `${firstPart}@${option}${lastPart}`;
+
+    setCurrentValue(finalValue);
+    updateNote(finalValue);
   };
 
   return (
@@ -132,6 +121,7 @@ const NoteDetails = ({ body, id }: Props) => {
         onDragOver={(e) => {
           e.preventDefault();
         }}
+        onDrop={handleDroppedUser}
         id="textArea"
         value={currentValue}
         onChange={handleNoteOnChange}

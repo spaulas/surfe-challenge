@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import ErrorState from "../../components/States/Error";
 import LoadingState from "../../components/States/Loading";
-import Details from "../../components/Notes/Details/index";
+import NoteDetails from "../../components/Notes/Details/index";
 import useGetNoteDetails from "../../hooks/notes/useGetNoteDetails";
 
-const NoteDetails = (): React.ReactElement => {
+const Details = (): React.ReactElement => {
   const { getNoteById, body, id, isLoading, hasError } = useGetNoteDetails();
 
   useEffect(() => {
+    console.log("getNotes DETAISL");
     getNoteById();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -18,8 +19,8 @@ const NoteDetails = (): React.ReactElement => {
     case hasError:
       return <ErrorState />;
     default:
-      return <Details body={body} id={id} />;
+      return <NoteDetails body={body} id={id} />;
   }
 };
 
-export default NoteDetails;
+export default Details;

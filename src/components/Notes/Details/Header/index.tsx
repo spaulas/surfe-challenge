@@ -1,22 +1,22 @@
 import { useEffect } from "react";
+import useGetNotes from "../../../../hooks/notes/useGetNotes";
 import useGetMostMentionedUsers from "../../../../hooks/users/useGetMostMentionedUsers";
 
 const DetailsHeader = ({ setDraggingUser }: any) => {
+  /* const { redirectToList } = useGetNotes(); */
   const { getMostMentionedUsers, mostMentionedUsers } =
     useGetMostMentionedUsers();
 
   useEffect(() => {
     getMostMentionedUsers();
-
-    window.addEventListener("drop", (e) => console.log("drop = ", e));
   }, []);
 
   return (
     <div className="note-details__header">
-      <div>
+      <div className="note-details__mentioned-users-container">
         {mostMentionedUsers.map((user: any) => (
           <div
-            id="draggable"
+            className="note-details__mentioned-users-item text-xs"
             draggable="true"
             onDragStart={() => {
               setDraggingUser(user.username);
@@ -24,7 +24,7 @@ const DetailsHeader = ({ setDraggingUser }: any) => {
           >{`${user.first_name} ${user.last_name} | @${user.username}`}</div>
         ))}
       </div>
-      <button>Back</button>
+      {/* <button onClick={() => redirectToList()}>Back</button> */}
     </div>
   );
 };

@@ -11,7 +11,7 @@ const NoteCard = ({ body, id }: Note) => {
 
   return (
     <div className="note-card" onClick={handleCardOnClick}>
-      <span>{body}</span>
+      {body}
     </div>
   );
 };

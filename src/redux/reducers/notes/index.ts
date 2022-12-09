@@ -5,7 +5,7 @@ import InitialNotes from "./notesReducer.types";
 const INITIAL_NOTES: InitialNotes = {
   body: null,
   notes: [],
-  isLoading: false,
+  isLoading: true,
   isUpdating: false,
   isCreating: false,
   hasError: false,
@@ -91,8 +91,7 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
       return {
         ...state,
         isCreating: false,
-        hasError: false,
-        notes: action.payload.notes,
+        hasError: false
       };
 
     case NotesActionsTypes.CREATE_NOTE_ERROR:

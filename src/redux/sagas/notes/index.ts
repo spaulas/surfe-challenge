@@ -11,6 +11,7 @@ import {
 export function* fetchNotesAsync({ payload }: any): any {
   try {
     const notes = yield call(fetchNotesAPIRequest, payload);
+    console.log('notes = ', notes)
     yield put(actions.fetchNotesSucceeded(notes));
   } catch (error) {
     yield put(actions.fetchNotesFailed(error));
@@ -20,6 +21,7 @@ export function* fetchNotesAsync({ payload }: any): any {
 export function* fetchNotesByIdAsync({ payload }: any): any {
   try {
     const note = yield call(fetchNoteByIdAPIRequest, payload);
+    console.log('NOTE FETCH = ', note)
     yield put(actions.fetchNoteByIdSucceeded(note.body));
   } catch (error) {
     yield put(actions.fetchNoteByIdFailed(error));
@@ -28,8 +30,8 @@ export function* fetchNotesByIdAsync({ payload }: any): any {
 
 export function* updateNoteByIdAsync({ payload }: any): any {
   try {
-    yield call(updateNoteAPIRequest, payload);
-    yield put(actions.updateNoteSucceeded(payload));
+    const note = yield call(updateNoteAPIRequest, payload);
+    yield put(actions.updateNoteSucceeded(note.body));
   } catch (error) {
     yield put(actions.updateNoteFailed(error));
   }

@@ -43,7 +43,8 @@ export const updateNoteAPIRequest = async ({
     const response = await axiosInstance.put(NOTE_BY_ID_ENDPOINT(session, id), {
       body,
     });
-    return response;
+    console.log("updateNoteAPIRequest response = ", response);
+    return response.data;
   } catch (error) {
     throw handleAPIError(error as Error);
   }
@@ -51,7 +52,9 @@ export const updateNoteAPIRequest = async ({
 
 export const createNoteAPIRequest = async ({ session }: NotesPayload) => {
   try {
-    const response = await axiosInstance.post(NOTES_ENDPOINT(session));
+    const response = await axiosInstance.post(NOTES_ENDPOINT(session), {
+      body: " ",
+    });
     return response;
   } catch (error) {
     throw handleAPIError(error as Error);

@@ -6,12 +6,13 @@ import LoadingState from "../../components/States/Loading";
 import useGetNotes from "../../hooks/notes/useGetNotes";
 import { useHistory } from "react-router-dom";
 
-const Main = (): React.ReactElement => {
+const List = (): React.ReactElement => {
   const history = useHistory();
   const { getNotes, notes, isLoading, hasError, session } = useGetNotes();
 
   // TODO check this is doing 2 requests
   useEffect(() => {
+    console.log('GET NOTES = ')
     getNotes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -19,6 +20,9 @@ const Main = (): React.ReactElement => {
   const redirectToNote = () => {
     history.push(`${session}/notes`);
   };
+
+  console.log('isLoading = ', isLoading)
+  console.log('notes = ', notes)
 
   switch (true) {
     case isLoading:
@@ -38,4 +42,4 @@ const Main = (): React.ReactElement => {
   }
 };
 
-export default Main;
+export default List;

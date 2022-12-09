@@ -7,11 +7,25 @@
     margin-bottom: 40px;
 
     button {
-      background-color: #119bf2;
-      color: white;
-      padding: 16px 32px;
-      border-radius: 32px;
       margin-left: auto;
+    }
+  }
+
+  &__mentioned-users {
+    &-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    &-item {
+      background-color: white;
+      padding: 4px 8px;
+      margin: 4px 8px;
+      border-radius: 4px;
+      -webkit-box-shadow: 2px 2px 16px 0px rgba(0, 0, 0, 0.12);
+      -moz-box-shadow: 2px 2px 16px 0px rgba(0, 0, 0, 0.12);
+      box-shadow: 2px 2px 16px 0px rgba(0, 0, 0, 0.12);
     }
   }
 
