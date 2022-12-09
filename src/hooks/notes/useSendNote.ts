@@ -12,7 +12,7 @@ const useSendNote = () => {
 
   const notesState = useSelector(({ Notes }: RootReducerState) => ({
     isUpdating: Notes.isLoading.update,
-    hasUpdateError: Notes.hasUpdateError,
+    hasUpdateError: Notes.hasError.update,
   }));
 
   const updateNote = (body: Note["body"]) => {

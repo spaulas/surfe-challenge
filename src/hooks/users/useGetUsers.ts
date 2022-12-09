@@ -18,8 +18,8 @@ const useGetUsers = () => {
 
   const usersState = useSelector(({ Users }: RootReducerState) => ({
     users: Users.users,
-    isLoading: Users.isLoading,
-    hasError: Users.hasError,
+    isLoading: Users.isLoading.fetch,
+    hasError: Users.hasError.fetch,
   }));
 
   const getUsers = () => {

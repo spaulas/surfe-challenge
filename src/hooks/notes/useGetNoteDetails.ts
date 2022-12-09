@@ -10,7 +10,7 @@ const useGetNoteDetails = () => {
   const notesState = useSelector(({ Notes }: RootReducerState) => ({
     body: Notes.body,
     isLoading: Notes.isLoading.fetchDetails,
-    hasError: Notes.hasError,
+    hasError: Notes.hasError.fetchDetails,
   }));
 
   const getNoteById = () => {

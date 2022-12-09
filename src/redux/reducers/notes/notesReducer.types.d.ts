@@ -8,8 +8,12 @@ type InitialNotes = {
     fetchDetails: boolean;
     update: boolean;
   };
-  hasError: boolean;
-  hasUpdateError: boolean;
+  hasError: {
+    fetch?: boolean;
+    fetchDetails?: boolean;
+    update?: boolean;
+    create?: boolean;
+  };
 };
 
 export default InitialNotes;

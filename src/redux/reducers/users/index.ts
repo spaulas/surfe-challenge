@@ -5,10 +5,14 @@ import InitialUsers from "./usersReducer.types";
 const INITIAL_USERS: InitialUsers = {
   users: [],
   mostMentionedUsers: [],
-  isLoading: false,
-  isFetchingMostMentionedUsers: false,
-  hasError: undefined,
-  hasFetchingMostMentionedUsersError: undefined,
+  isLoading: {
+    fetch: true,
+    fetchMostMentioned: true,
+  },
+  hasError: {
+    fetch: undefined,
+    fetchMostMentioned: undefined,
+  },
 };
 
 const usersReducer = (state = INITIAL_USERS, action: ActionsCreators) => {
@@ -17,46 +21,46 @@ const usersReducer = (state = INITIAL_USERS, action: ActionsCreators) => {
       return {
         ...state,
         users: [],
-        isLoading: true,
-        hasError: undefined,
+        isLoading: { ...state.isLoading, fetch: true },
+        hasError: { ...state.hasError, fetch: undefined },
       };
 
     case UsersActionsTypes.FETCH_USERS_SUCCESS:
       return {
         ...state,
         users: action.payload.users,
-        isLoading: false,
-        hasError: false,
+        isLoading: { ...state.isLoading, fetch: false },
+        hasError: { ...state.hasError, fetch: false },
       };
 
     case UsersActionsTypes.FETCH_USERS_ERROR:
       return {
         ...state,
-        isLoading: false,
-        hasError: true,
+        isLoading: { ...state.isLoading, fetch: false },
+        hasError: { ...state.hasError, fetch: true },
       };
 
     case UsersActionsTypes.FETCH_MOST_MENTIONED_REQUEST:
       return {
         ...state,
         mostMentionedUsers: [],
-        isFetchingMostMentionedUsers: true,
-        hasFetchingMostMentionedUsersError: undefined,
+        isLoading: { ...state.isLoading, fetchMostMentioned: true },
+        hasError: { ...state.hasError, fetchMostMentioned: undefined },
       };
 
     case UsersActionsTypes.FETCH_MOST_MENTIONED_SUCCESS:
       return {
         ...state,
         mostMentionedUsers: action.payload.users,
-        isFetchingMostMentionedUsers: false,
-        hasFetchingMostMentionedUsersError: false,
+        isLoading: { ...state.isLoading, fetchMostMentioned: false },
+        hasError: { ...state.hasError, fetchMostMentioned: false },
       };
 
     case UsersActionsTypes.FETCH_MOST_MENTIONED_ERROR:
       return {
         ...state,
-        isFetchingMostMentionedUsers: false,
-        hasFetchingMostMentionedUsersError: true,
+        isLoading: { ...state.isLoading, fetchMostMentioned: false },
+        hasError: { ...state.hasError, fetchMostMentioned: true },
       };
 
     default:

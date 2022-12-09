@@ -3,10 +3,14 @@ import { User } from "../../../api/users/types";
 type InitialUsers = {
   users: User[];
   mostMentionedUsers: User[];
-  isLoading: boolean;
-  isFetchingMostMentionedUsers: boolean;
-  hasError?: boolean;
-  hasFetchingMostMentionedUsersError?: boolean;
+  isLoading: {
+    fetch: boolean;
+    fetchMostMentioned: boolean;
+  };
+  hasError: {
+    fetch?: boolean;
+    fetchMostMentioned?: boolean;
+  };
 };
 
 export default InitialUsers;

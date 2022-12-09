@@ -10,8 +10,12 @@ const INITIAL_NOTES: InitialNotes = {
     fetchDetails: true,
     update: true,
   },
-  hasUpdateError: false,
-  hasError: false,
+  hasError: {
+    fetch: undefined,
+    fetchDetails: undefined,
+    update: undefined,
+    create: undefined,
+  },
 };
 
 const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
@@ -24,7 +28,10 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
           fetch: true,
           fetchDetails: true,
         },
-        hasError: false,
+        hasError: {
+          ...state.hasError,
+          fetch: undefined,
+        },
       };
 
     case NotesActionsTypes.FETCH_NOTES_SUCCESS:
@@ -32,9 +39,12 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
         ...state,
         isLoading: {
           ...state.isLoading,
-          fetch: false
+          fetch: false,
         },
-        hasError: false,
+        hasError: {
+          ...state.hasError,
+          fetch: false,
+        },
         notes: action.payload.notes,
       };
 
@@ -43,9 +53,12 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
         ...state,
         isLoading: {
           ...state.isLoading,
-          fetch: false
+          fetch: false,
         },
-        hasError: true,
+        hasError: {
+          ...state.hasError,
+          fetch: true,
+        },
       };
 
     case NotesActionsTypes.FETCH_NOTE_BY_ID_REQUEST:
@@ -55,9 +68,12 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
         isLoading: {
           ...state.isLoading,
           fetch: true,
-          fetchDetails: true
+          fetchDetails: true,
         },
-        hasError: false,
+        hasError: {
+          ...state.hasError,
+          fetchDetails: undefined,
+        },
       };
 
     case NotesActionsTypes.FETCH_NOTE_BY_ID_SUCCESS:
@@ -66,9 +82,12 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
         body: action.payload.body,
         isLoading: {
           ...state.isLoading,
-          fetchDetails: false
+          fetchDetails: false,
         },
-        hasError: false,
+        hasError: {
+          ...state.hasError,
+          fetchDetails: false,
+        },
       };
 
     case NotesActionsTypes.FETCH_NOTE_BY_ID_ERROR:
@@ -76,9 +95,12 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
         ...state,
         isLoading: {
           ...state.isLoading,
-          fetchDetails: false
+          fetchDetails: false,
         },
-        hasError: true,
+        hasError: {
+          ...state.hasError,
+          fetchDetails: true,
+        },
       };
 
     case NotesActionsTypes.UPDATE_NOTE_REQUEST:
@@ -86,9 +108,12 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
         ...state,
         isLoading: {
           ...state.isLoading,
-          update: true
+          update: true,
         },
-        hasUpdateError: false,
+        hasError: {
+          ...state.hasError,
+          update: undefined,
+        },
       };
 
     case NotesActionsTypes.UPDATE_NOTE_SUCCESS:
@@ -97,9 +122,12 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
         body: action.payload.body,
         isLoading: {
           ...state.isLoading,
-          update: false
+          update: false,
         },
-        hasUpdateError: false,
+        hasError: {
+          ...state.hasError,
+          update: false,
+        },
       };
 
     case NotesActionsTypes.UPDATE_NOTE_ERROR:
@@ -107,9 +135,12 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
         ...state,
         isLoading: {
           ...state.isLoading,
-          update: false
+          update: false,
         },
-        hasUpdateError: true,
+        hasError: {
+          ...state.hasError,
+          update: true,
+        },
       };
 
     case NotesActionsTypes.CREATE_NOTE_REQUEST:
@@ -117,9 +148,12 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
         ...state,
         isLoading: {
           ...state.isLoading,
-          fetch: true
+          fetch: true,
         },
-        hasCreateError: undefined,
+        hasError: {
+          ...state.hasError,
+          create: undefined,
+        },
       };
 
     case NotesActionsTypes.CREATE_NOTE_SUCCESS:
@@ -127,9 +161,12 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
         ...state,
         isLoading: {
           ...state.isLoading,
-          fetch: false
+          fetch: false,
         },
-        hasError: false,
+        hasError: {
+          ...state.hasError,
+          create: false,
+        },
         notes: action.payload.notes,
       };
 
@@ -138,9 +175,12 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
         ...state,
         isLoading: {
           ...state.isLoading,
-          fetch: false
+          fetch: false,
         },
-        hasError: true,
+        hasError: {
+          ...state.hasError,
+          create: true,
+        },
       };
 
     default:

@@ -7,8 +7,8 @@ const useGetMostMentionedUsers = () => {
 
   const usersState = useSelector(({ Users }: RootReducerState) => ({
     mostMentionedUsers: Users.mostMentionedUsers,
-    isLoading: Users.isFetchingMostMentionedUsers,
-    hasError: Users.hasFetchingMostMentionedUsersError,
+    isLoading: Users.isLoading.fetchMostMentioned,
+    hasError: Users.hasError.fetchMostMentioned,
   }));
 
   const getMostMentionedUsers = () => {
