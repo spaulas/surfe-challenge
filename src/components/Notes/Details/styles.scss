@@ -5,10 +5,6 @@
     width: 100%;
     display: flex;
     margin-bottom: 40px;
-
-    button {
-      margin-left: auto;
-    }
   }
 
   &__mentioned-users {
@@ -30,6 +26,10 @@
       align-items: center;
       display: flex;
     }
+  }
+
+  &__actions {
+    margin-left: auto;
   }
 
   .status-tag {
@@ -54,12 +54,10 @@
     }
   }
 
-
-
   textarea {
     resize: none;
     width: 100%;
-    height: calc(100% - 32px - 40px);
+    height: calc(100% - 64px * 2);
     padding: 16px;
     border-radius: 8px;
   }

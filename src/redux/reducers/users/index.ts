@@ -45,7 +45,6 @@ const usersReducer = (state = INITIAL_USERS, action: ActionsCreators) => {
       };
 
     case UsersActionsTypes.FETCH_MOST_MENTIONED_SUCCESS:
-      console.log('FETCH_MOST_MENTIONED_SUCCESS = ', action.payload.users)
       return {
         ...state,
         mostMentionedUsers: action.payload.users,

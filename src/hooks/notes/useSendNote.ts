@@ -11,7 +11,7 @@ const useSendNote = () => {
   const dispatch = useDispatch();
 
   const notesState = useSelector(({ Notes }: RootReducerState) => ({
-    isUpdating: Notes.isUpdating,
+    isUpdating: Notes.isLoading.update,
     hasUpdateError: Notes.hasUpdateError,
   }));
 

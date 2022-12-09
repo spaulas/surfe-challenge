@@ -21,9 +21,8 @@ export function* fetchUsersAsync(): any {
 
 export function* fetchMostMentionedUsersAsync(): any {
   try {
-    const response = yield call(fetchMostMentionedUsersAPIRequest);
-    console.log('response = ', response)
-    yield put(actions.fetchMostMentionedUsersSucceeded(response));
+    const users = yield call(fetchMostMentionedUsersAPIRequest);
+    yield put(actions.fetchMostMentionedUsersSucceeded(users));
   } catch (error) {
     yield put(actions.fetchMostMentionedUsersFailed(error));
   }

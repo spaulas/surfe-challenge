@@ -6,6 +6,8 @@ body {
   background-color: #e7f2fe;
   padding: 64px;
   box-sizing: border-box;
+  min-width: 448px;
+  min-height: 488px;
 }
 
 
