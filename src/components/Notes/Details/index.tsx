@@ -12,8 +12,8 @@ const NoteDetails = ({ body }: Props): React.ReactElement => {
   const [currentValue, setCurrentValue] = useState<string>(body);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const draggingUser = useRef<string>("");
-  const lastValue = useRef<string>("");
-  const index = useRef<number>(0);
+  const indexStart = useRef<number>(0);
+  const indexEnd = useRef<number>(0);
 
   const { updateNote } = useSendNote();
   const { filterUsers, users, hasError } = useGetUsers();
@@ -31,35 +31,23 @@ const NoteDetails = ({ body }: Props): React.ReactElement => {
     setCurrentValue(finalValue);
   };
 
-  const handleOpenDropdown = (value: string) => {
-    lastValue.current = value;
-    setShowDropdown(true);
-  };
-
-  const handleOnCloseDropdown = () => {
-    setShowDropdown(false);
-    lastValue.current = "";
-  };
-
   const handleOptionClick = (option: any) => {
-    const firstPart = lastValue.current.slice(0, index.current - 1);
-    const lastPart = lastValue.current.slice(
-      index.current,
-      lastValue.current.length
-    );
+    console.log();
+    const firstPart = currentValue.slice(0, indexStart.current - 1);
+    const lastPart = currentValue.slice(indexEnd.current, currentValue.length);
 
-    const finalValue = `${firstPart}@${option}${lastPart}`;
+    const finalValue = `${firstPart}@${option} ${lastPart}`;
 
     setCurrentValue(finalValue);
     updateNote(finalValue);
   };
 
   const handleNoteOnChange = ({
-    target: { value },
+    target: { value, selectionEnd },
     nativeEvent: { data: char },
   }: ExplicitAny) => {
     if (char === "@") {
-      handleOpenDropdown(value);
+      handleOpenDropdown(value, selectionEnd);
     } else if (char === " ") {
       handleOnCloseDropdown();
     }
@@ -68,33 +56,30 @@ const NoteDetails = ({ body }: Props): React.ReactElement => {
     debouncedBodyChange(value);
 
     if (showDropdown) {
+      indexEnd.current = selectionEnd;
       debouncedMentionChange(value);
     }
   };
 
-  const filterWithDiff = (value: string) => {
-    const diff = findDiff(lastValue.current, value);
-    filterUsers(diff);
+  const handleOpenDropdown = (value: string, index: number) => {
+    indexStart.current = index;
+    indexEnd.current = index;
+    setShowDropdown(true);
   };
 
-  const findDiff = (str1: string, str2: string) => {
-    let diff = "";
+  const handleOnCloseDropdown = () => {
+    indexStart.current = 0;
+    indexEnd.current = 0;
+    setShowDropdown(false);
+  };
 
-    str2.split("").every((val, i) => {
-      if (val !== str1.charAt(i)) {
-        if (diff === "") {
-          index.current = i;
-        }
-
-        if (val === " ") {
-          return false;
-        }
-
-        diff += val;
-      }
-      return true;
-    });
-    return diff;
+  const filterWithDiff = (value: string) => {
+    if (value.charAt(indexStart.current - 1) !== "@") {
+      handleOnCloseDropdown();
+    } else {
+      const diff = value.slice(indexStart.current, indexEnd.current);
+      filterUsers(diff);
+    }
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

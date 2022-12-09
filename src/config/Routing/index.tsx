@@ -10,7 +10,7 @@ const Routing = (): React.ReactElement => {
     <Switch>
       <Route path={`/:session${NOTES}/:id`} component={NoteDetails} />
       <Route path={`/:session/*`} component={NotFound} />
-      <Route path={`/:session/`} component={NotesList} />
+      <Route path={`/:session`} component={NotesList} />
     </Switch>
   );
 };
