@@ -1,31 +1,22 @@
-import "./styles.scss";
-import { ExplicitAny } from "../../../type/global";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import debounce from "lodash.debounce";
-import useSendNote from "../../../hooks/notes/useSendNote";
-import { useEffect, useRef } from "react";
-import { Props } from "./types";
 import UserDropdown from "../../Users/UserDropdown";
-import useGetUsers from "../../../hooks/users/useGetUsers";
 import DetailsHeader from "./Header";
+import useSendNote from "../../../hooks/notes/useSendNote";
+import useGetUsers from "../../../hooks/users/useGetUsers";
+import { Props } from "./types";
+import { ExplicitAny } from "../../../type/global";
+import "./styles.scss";
 
-const NoteDetails = ({ body, id }: Props) => {
+const NoteDetails = ({ body }: Props): React.ReactElement => {
   const [currentValue, setCurrentValue] = useState<string>(body);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const draggingUser = useRef<string>("");
   const lastValue = useRef<string>("");
   const index = useRef<number>(0);
 
-  const { updateNote, createNote } = useSendNote();
+  const { updateNote } = useSendNote();
   const { filterUsers, users, hasError } = useGetUsers();
-
-  useEffect(() => {
-    if (typeof id === "undefined") {
-      createNote();
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (hasError === false) {
@@ -40,18 +31,37 @@ const NoteDetails = ({ body, id }: Props) => {
     setCurrentValue(finalValue);
   };
 
-  const handleNoteOnChange = (e: ExplicitAny) => {
-    const {
-      target: { value },
-      nativeEvent: { data: char },
-    } = e;
+  const handleOpenDropdown = (value: string) => {
+    lastValue.current = value;
+    setShowDropdown(true);
+  };
 
+  const handleOnCloseDropdown = () => {
+    setShowDropdown(false);
+    lastValue.current = "";
+  };
+
+  const handleOptionClick = (option: any) => {
+    const firstPart = lastValue.current.slice(0, index.current - 1);
+    const lastPart = lastValue.current.slice(
+      index.current,
+      lastValue.current.length
+    );
+
+    const finalValue = `${firstPart}@${option}${lastPart}`;
+
+    setCurrentValue(finalValue);
+    updateNote(finalValue);
+  };
+
+  const handleNoteOnChange = ({
+    target: { value },
+    nativeEvent: { data: char },
+  }: ExplicitAny) => {
     if (char === "@") {
-      lastValue.current = value;
-      setShowDropdown(true);
+      handleOpenDropdown(value);
     } else if (char === " ") {
-      setShowDropdown(false);
-      lastValue.current = "";
+      handleOnCloseDropdown();
     }
 
     setCurrentValue(value);
@@ -82,10 +92,8 @@ const NoteDetails = ({ body, id }: Props) => {
 
         diff += val;
       }
-
       return true;
     });
-
     return diff;
   };
 
@@ -94,21 +102,9 @@ const NoteDetails = ({ body, id }: Props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedMentionChange = useMemo(
     () => debounce(filterWithDiff, 300),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
-
-  const handleOptionClick = (option: any) => {
-    const firstPart = lastValue.current.slice(0, index.current - 1);
-    const lastPart = lastValue.current.slice(
-      index.current,
-      lastValue.current.length
-    );
-
-    const finalValue = `${firstPart}@${option}${lastPart}`;
-
-    setCurrentValue(finalValue);
-    updateNote(finalValue);
-  };
 
   return (
     <section className="note-details">
@@ -128,7 +124,7 @@ const NoteDetails = ({ body, id }: Props) => {
       />
       {showDropdown ? (
         <UserDropdown
-          hide={() => {
+          closeDropdown={() => {
             setShowDropdown(false);
           }}
           users={users}

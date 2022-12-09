@@ -1,6 +1,6 @@
 import "../styles.scss";
 
-const ErrorState = () => {
+const ErrorState = (): React.ReactElement => {
   return (
     <section className="state">
       <div>

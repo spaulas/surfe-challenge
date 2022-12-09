@@ -3,26 +3,20 @@ import httpClient from "../../config/HttpClient";
 
 const axiosInstance = httpClient();
 
-// TODO
-export const handleAPIError = (error: Error) => {
-  return error;
-};
-
 export const fetchUsersAPIRequest = async () => {
   try {
     const response = await axiosInstance.get(USERS_ENDPOINT);
     return response.data;
   } catch (error) {
-    throw handleAPIError(error as Error);
+    return error;
   }
 };
 
 export const fetchMostMentionedUsersAPIRequest = async () => {
   try {
     const response = await axiosInstance.get(MOST_MENTIONED_USERS_ENDPOINT);
-    console.log('response = ', response)
     return response.data;
   } catch (error) {
-    throw handleAPIError(error as Error);
+    return error;
   }
 };

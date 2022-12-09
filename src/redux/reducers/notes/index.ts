@@ -3,11 +3,11 @@ import NotesActionsTypes from "../../actions/notes/notesActions.types.d";
 import InitialNotes from "./notesReducer.types";
 
 const INITIAL_NOTES: InitialNotes = {
-  body: null,
   notes: [],
+  body: null,
   isLoading: true,
   isUpdating: false,
-  isCreating: false,
+  hasUpdateError: false,
   hasError: false,
 };
 
@@ -62,7 +62,7 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
       return {
         ...state,
         isUpdating: true,
-        hasError: false,
+        hasUpdateError: false,
       };
 
     case NotesActionsTypes.UPDATE_NOTE_SUCCESS:
@@ -70,34 +70,35 @@ const notesReducer = (state = INITIAL_NOTES, action: ActionsCreators) => {
         ...state,
         body: action.payload.body,
         isUpdating: false,
-        hasError: false,
+        hasUpdateError: false,
       };
 
     case NotesActionsTypes.UPDATE_NOTE_ERROR:
       return {
         ...state,
         isUpdating: false,
-        hasError: true,
+        hasUpdateError: true,
       };
 
     case NotesActionsTypes.CREATE_NOTE_REQUEST:
       return {
         ...state,
-        isCreating: true,
-        hasError: false,
+        isLoading: true,
+        hasCreateError: undefined,
       };
 
     case NotesActionsTypes.CREATE_NOTE_SUCCESS:
       return {
         ...state,
-        isCreating: false,
-        hasError: false
+        isLoading: false,
+        hasError: false,
+        notes: action.payload.notes,
       };
 
     case NotesActionsTypes.CREATE_NOTE_ERROR:
       return {
         ...state,
-        isCreating: false,
+        isLoading: false,
         hasError: true,
       };
 

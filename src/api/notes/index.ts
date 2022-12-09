@@ -4,21 +4,16 @@ import {
   NotesPayload,
   NoteByIdPayload,
   UpdateNotePayload,
-} from "./notes.types";
+} from "./types.d";
 
 const axiosInstance = httpClient();
-
-// TODO
-export const handleAPIError = (error: Error) => {
-  return error;
-};
 
 export const fetchNotesAPIRequest = async ({ session }: NotesPayload) => {
   try {
     const response = await axiosInstance.get(NOTES_ENDPOINT(session));
     return response.data;
   } catch (error) {
-    throw handleAPIError(error as Error);
+    throw error;
   }
 };
 
@@ -30,7 +25,7 @@ export const fetchNoteByIdAPIRequest = async ({
     const response = await axiosInstance.get(NOTE_BY_ID_ENDPOINT(session, id));
     return response.data;
   } catch (error) {
-    throw handleAPIError(error as Error);
+    throw error;
   }
 };
 
@@ -43,10 +38,9 @@ export const updateNoteAPIRequest = async ({
     const response = await axiosInstance.put(NOTE_BY_ID_ENDPOINT(session, id), {
       body,
     });
-    console.log("updateNoteAPIRequest response = ", response);
     return response.data;
   } catch (error) {
-    throw handleAPIError(error as Error);
+    throw error;
   }
 };
 
@@ -57,6 +51,6 @@ export const createNoteAPIRequest = async ({ session }: NotesPayload) => {
     });
     return response;
   } catch (error) {
-    throw handleAPIError(error as Error);
+    throw error;
   }
 };

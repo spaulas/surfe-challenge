@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
-import actions from "../../redux/actions/notes";
 import { useHistory, useParams } from "react-router-dom";
-import { Note } from "../../api/notes/notes.types";
+import actions from "../../redux/actions/notes";
 import { NOTES_BY_ID_PATH } from "../../constants/routes";
+import { Note } from "../../api/notes/types";
 
 const useSendNote = () => {
   const { session, id } = useParams<{ session: string; id: string }>();

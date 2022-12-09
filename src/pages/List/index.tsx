@@ -4,24 +4,16 @@ import EmptyState from "../../components/States/Empty";
 import ErrorState from "../../components/States/Error";
 import LoadingState from "../../components/States/Loading";
 import useGetNotes from "../../hooks/notes/useGetNotes";
-import { useHistory } from "react-router-dom";
+import useSendNote from "../../hooks/notes/useSendNote";
 
 const List = (): React.ReactElement => {
-  const history = useHistory();
-  const { getNotes, notes, isLoading, hasError, session } = useGetNotes();
+  const { getNotes, notes, isLoading, hasError } = useGetNotes();
+  const { createNote } = useSendNote();
 
-  // TODO check this is doing 2 requests
   useEffect(() => {
-    console.log('GET NOTES = ')
     getNotes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const redirectToNote = () => {
-    history.push(`${session}/notes`);
-  };
-
-  console.log('isLoading = ', isLoading)
 
   switch (true) {
     case isLoading:
@@ -33,7 +25,7 @@ const List = (): React.ReactElement => {
         <EmptyState
           title="There are no notes"
           buttonTitle="Create new note"
-          onClick={redirectToNote}
+          onClick={() => createNote()}
         />
       );
     default:

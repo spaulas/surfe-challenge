@@ -1,18 +1,21 @@
 import { useEffect } from "react";
 import useGetUsers from "../../../hooks/users/useGetUsers";
+import { Props } from "./types";
 
-const UserDropdown = ({ hide, users, handleOptionClick }: any) => {
+const UserDropdown = ({
+  users,
+  closeDropdown,
+  handleOptionClick,
+}: Props): React.ReactElement => {
   const { getUsers, filterUsers, hasError } = useGetUsers();
-  const handleClickOutside = (e: any) => {
-    hide(false);
-  };
 
   useEffect(() => {
     getUsers();
-    window.addEventListener("click", handleClickOutside);
+
+    window.addEventListener("click", closeDropdown);
 
     return () => {
-      window.removeEventListener("click", handleClickOutside);
+      window.removeEventListener("click", closeDropdown);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

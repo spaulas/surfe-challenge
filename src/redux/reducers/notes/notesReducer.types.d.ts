@@ -1,12 +1,12 @@
-import { Note } from "../../../api/notes/notes.types";
+import { Note } from "../../../api/notes/types";
 
 type InitialNotes = {
+  notes: Note[];
   body: string | null;
   isLoading: boolean;
   isUpdating: boolean;
-  isCreating: boolean;
   hasError: boolean;
-  notes: Note[];
+  hasUpdateError: boolean;
 };
 
 export default InitialNotes;

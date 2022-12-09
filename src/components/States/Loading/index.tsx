@@ -1,6 +1,6 @@
 import "../styles.scss";
 
-const LoadingState = () => {
+const LoadingState = (): React.ReactElement => {
   return (
     <div className="state">
       <div role="status">

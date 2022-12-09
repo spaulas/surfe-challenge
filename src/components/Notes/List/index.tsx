@@ -1,17 +1,17 @@
 import NoteCard from "./NoteCard";
+import useSendNote from "../../../hooks/notes/useSendNote";
 import { Props } from "./types";
 import "./styles.scss";
-import useGetNoteDetails from "../../../hooks/notes/useGetNoteDetails";
 
-const NotesList = ({ notes }: Props) => {
-  const {redirectToNewNote} = useGetNoteDetails()
+const NotesList = ({ notes }: Props): React.ReactElement => {
+  const { createNote } = useSendNote();
 
   return (
     <section className="notes-list">
       {notes.map((note) => (
         <NoteCard {...note} key={note.id} />
       ))}
-      <button onClick={() => redirectToNewNote()}>New</button>
+      <button onClick={() => createNote()}>New</button>
     </section>
   );
 };

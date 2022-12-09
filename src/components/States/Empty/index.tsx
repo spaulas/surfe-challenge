@@ -2,7 +2,7 @@ import { Props } from "./types";
 import "../styles.scss";
 import "./styles.scss";
 
-const EmptyState = ({ title, buttonTitle, onClick }: Props) => {
+const EmptyState = ({ title, buttonTitle, onClick }: Props): React.ReactElement => {
   return (
     <section className="state">
       <div>

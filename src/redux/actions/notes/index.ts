@@ -5,7 +5,7 @@ import {
   NoteByIdPayload,
   NotesPayload,
   UpdateNotePayload,
-} from "../../../api/notes/notes.types";
+} from "../../../api/notes/types";
 
 const fetchNotesRequest = ({ session }: NotesPayload) => {
   return {
@@ -65,9 +65,9 @@ const createNoteRequest = ({ session }: NotesPayload) => {
   };
 };
 
-const createNoteSucceeded = (body: string) => ({
+const createNoteSucceeded = (notes: Note[]) => ({
   type: NotesActionsTypes.CREATE_NOTE_SUCCESS,
-  payload: { body },
+  payload: { notes },
 });
 
 const createNoteFailed = (error: any) => ({
