@@ -22,7 +22,6 @@ const List = (): React.ReactElement => {
   };
 
   console.log('isLoading = ', isLoading)
-  console.log('notes = ', notes)
 
   switch (true) {
     case isLoading:
