@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import HeaderStatus from "./Status";
 import { UserFromRequest } from "../../../../api/users/types";
 import useGetNotes from "../../../../hooks/notes/useGetNotes";
 import useGetMostMentionedUsers from "../../../../hooks/users/useGetMostMentionedUsers";
@@ -32,7 +33,10 @@ const DetailsHeader = ({ setDraggingUser }: Props): React.ReactElement => {
           </div>
         ))}
       </div>
-      <button onClick={() => redirectToList()}>Back</button>
+      <div className="note-details__actions">
+        <button onClick={() => redirectToList()}>Back</button>
+        <HeaderStatus />
+      </div>
     </div>
   );
 };
